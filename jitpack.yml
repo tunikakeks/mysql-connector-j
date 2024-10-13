@@ -1,0 +1,32 @@
+# JitPack configuration file for building MySQL Connector/J with Ant
+
+jdk:
+  - openjdk8
+
+# Pre-build step: Download all third-party libraries and place them in lib directory
+env:
+  global:
+    - JDK_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+
+before_install:
+  # Download necessary libraries
+  - mkdir -p lib
+  - curl -L -o lib/junit-jupiter-api-5.10.2.jar https://central.sonatype.com/artifact/org.junit.jupiter/junit-jupiter-api/5.10.2/jar
+  - curl -L -o lib/junit-jupiter-engine-5.10.2.jar https://central.sonatype.com/artifact/org.junit.jupiter/junit-jupiter-engine/5.10.2/jar
+  - curl -L -o lib/junit-platform-commons-1.10.2.jar https://central.sonatype.com/artifact/org.junit.platform/junit-platform-commons/1.10.2/jar
+  - curl -L -o lib/junit-platform-engine-1.10.2.jar https://central.sonatype.com/artifact/org.junit.platform/junit-platform-engine/1.10.2/jar
+  - curl -L -o lib/junit-platform-launcher-1.10.2.jar https://central.sonatype.com/artifact/org.junit.platform/junit-platform-launcher/1.10.2/jar
+  - curl -L -o lib/apiguardian-api-1.1.2.jar https://central.sonatype.com/artifact/org.apiguardian/apiguardian-api/1.1.2/jar
+  - curl -L -o lib/opentest4j-1.3.0.jar https://central.sonatype.com/artifact/org.opentest4j/opentest4j/1.3.0/jar
+  - curl -L -o lib/javassist-3.30.2-GA.jar https://central.sonatype.com/artifact/org.javassist/javassist/3.30.2-GA/bundle
+  - curl -L -o lib/protobuf-java-4.26.1.jar https://central.sonatype.com/artifact/com.google.protobuf/protobuf-java/4.26.1/bundle
+  - curl -L -o lib/c3p0-0.10.1.jar https://central.sonatype.com/artifact/com.mchange/c3p0/0.10.1/jar
+  - curl -L -o lib/slf4j-api-2.0.13.jar https://central.sonatype.com/artifact/org.slf4j/slf4j-api/2.0.13/jar
+  - curl -L -o lib/hamcrest-2.2.jar https://central.sonatype.com/artifact/org.hamcrest/hamcrest/2.2/jar
+  - curl -L -o lib/oci-java-sdk-common-3.41.2.jar https://central.sonatype.com/artifact/com.oracle.oci.sdk/oci-java-sdk-common/3.41.2/jar
+  - curl -L -o lib/opentelemetry-api-1.38.0.jar https://central.sonatype.com/artifact/io.opentelemetry/opentelemetry-api/1.38.0
+  - curl -L -o lib/opentelemetry-context-1.38.0.jar https://central.sonatype.com/artifact/io.opentelemetry/opentelemetry-context/1.38.0
+
+install:
+  # Build the MySQL Connector/J driver using Ant
+  - ant -Dcom.mysql.cj.build.jdk=${JDK_HOME} dist
