@@ -5,7 +5,7 @@ jdk:
 
 before_install:
   # Download necessary libraries
-  - mkdir -p lib
+  - mkdir -p libs
   - curl -L -o lib/junit-jupiter-api-5.10.2.jar https://central.sonatype.com/artifact/org.junit.jupiter/junit-jupiter-api/5.10.2/jar
   - curl -L -o lib/junit-jupiter-engine-5.10.2.jar https://central.sonatype.com/artifact/org.junit.jupiter/junit-jupiter-engine/5.10.2/jar
   - curl -L -o lib/junit-platform-commons-1.10.2.jar https://central.sonatype.com/artifact/org.junit.platform/junit-platform-commons/1.10.2/jar
@@ -25,4 +25,3 @@ before_install:
 install:
   # Build the MySQL Connector/J driver using Ant
   - ant -Dcom.mysql.cj.build.jdk=${JDK_HOME} build
-  - ant -Dcom.mysql.cj.build.jdk=${JDK_HOME} -projecthelp
