@@ -24,4 +24,5 @@ before_install:
 
 install:
   # Build the MySQL Connector/J driver using Ant
-  - ant -Dcom.mysql.cj.build.jdk=${JDK_HOME} dist
+  - ant -Dcom.mysql.cj.build.jdk=${JDK_HOME} build
+  - ant -Dcom.mysql.cj.build.jdk=${JDK_HOME} -projecthelp
