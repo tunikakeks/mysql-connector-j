@@ -151,7 +151,7 @@ com.mysql.cj.build.dir.javadoc - javadoc build directory: [${com.mysql.cj.build.
 com.mysql.cj.dist.packageExtraName - optional extension to package name: [${com.mysql.cj.dist.packageExtraName}]
 com.mysql.cj.dist.packageName - final package name: [${com.mysql.cj.dist.packageName}]
 com.mysql.cj.dist.licenseUrl - license book location: [${com.mysql.cj.dist.licenseUrl}]
-com.mysql.cj.dist.noMaven - don't create Maven bundles: [${com.mysql.cj.dist.noMaven}] 
+com.mysql.cj.dist.noMaven - don't create Maven bundles: [${com.mysql.cj.dist.noMaven}]
 
 com.mysql.cj.dist.dir - root directory for driver packaging: [${com.mysql.cj.dist.dir}]
 com.mysql.cj.dist.dir.workspace - directory for preparing packages: [${com.mysql.cj.dist.dir.workspace}]
@@ -160,7 +160,7 @@ com.mysql.cj.dist.dir.maven - directory for preparing Maven packages: [${com.mys
 
 com.mysql.cj.dist.deb.maintainerEmail - the deb package maintainer email: [${com.mysql.cj.dist.deb.maintainerEmail}]
 
-com.mysql.cj.docs.xdevapi - destination of the X DevAPI Javadoc HTML files: [${com.mysql.cj.dist.dir.maven}] 
+com.mysql.cj.docs.xdevapi - destination of the X DevAPI Javadoc HTML files: [${com.mysql.cj.dist.dir.maven}]
 
 Available test properties
 =========================
@@ -318,14 +318,12 @@ See also com.mysql.cj.conf.PropertyDefinitions.SYSP_* variables for other test o
 
     <!-- Check required external libraries path. -->
     <target name="-extra-libs-check">
-        <fail message="The property 'com.mysql.cj.extra.libs' must point to a directory that contains the 3rd party libraries required for building tasks.">
+        <fail message="The property 'com.mysql.cj.extra.libs' must point to a directory that contains the 3rd party libraries required for building tasks. ${com.mysql.cj.extra.libs}">
             <condition>
                 <not>
                     <and>
                         <available file="${com.mysql.cj.extra.libs}" type="dir" />
-                        <available classname="javassist.CtClass" ignoresystemclasses="true">
-                            <classpath refid="com.mysql.cj.extra.libs.classpath" />
-                        </available>
+
                     </and>
                 </not>
             </condition>
@@ -818,7 +816,7 @@ See also com.mysql.cj.conf.PropertyDefinitions.SYSP_* variables for other test o
     <!-- Build and install the driver jar into the local maven repository. -->
     <target name="install" description="Builds and installs the driver jar into the local maven repository." depends="package">
         <exec executable="mvn" osfamily="unix" failonerror="true" failifexecutionfails="true">
-            <arg line="install:install-file 
+            <arg line="install:install-file
                 -Dfile=${com.mysql.cj.dist.dir.maven}/${com.mysql.cj.build.driver.fullName}.jar
                 -Dsources=${com.mysql.cj.dist.dir.maven}/${com.mysql.cj.build.driver.fullName}-sources.jar
                 -DpomFile=${com.mysql.cj.build.dir.driver}/pom.xml
